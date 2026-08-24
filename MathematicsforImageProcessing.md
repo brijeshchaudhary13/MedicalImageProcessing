@@ -1409,12 +1409,1443 @@ answer:
 
 ---
 
-## Important
+# Chapter 1 — Mathematics for Image Processing
 
-**Do not move to Chapter 2 yet.**
+## Continued: Deepening the Foundations
 
-Chapter 1 is intentionally foundational. We need to make sure these mathematical concepts are comfortable before moving to:
+We are continuing **Chapter 1**, not moving to Chapter 2 yet. The index requires Chapter 1 to cover numbers/functions, coordinates, vectors, matrices, transformations, eigenvalues/eigenvectors, complex numbers, calculus, probability, statistics, optimization, and numerical methods. 
 
-> **Chapter 2 — What Is an Image?**
+The previous section introduced these concepts. Now let's make the mathematical connections stronger.
+
+---
+
+# 1.23 Functions — Deeper Understanding
+
+A function can be viewed as:
+
+[
+f: X \rightarrow Y
+]
+
+This means:
+
+> A function takes an input from (X) and produces an output in (Y).
+
+For example:
+
+[
+f(x)=2x+1
+]
+
+If:
+
+[
+x=3
+]
+
+then:
+
+[
+f(3)=2(3)+1=7
+]
+
+So:
+
+```text
+x = 3
+ ↓
+f(x) = 2x + 1
+ ↓
+7
+```
+
+## Image function
+
+For a grayscale image:
+
+[
+I(x,y)
+]
+
+we have two inputs:
+
+```text
+x
+y
+```
+
+and one output:
+
+```text
+intensity
+```
+
+Therefore:
+
+```text
+(x, y)
+   ↓
+I(x,y)
+   ↓
+Intensity
+```
+
+Example:
+
+[
+I(100,200)=145
+]
+
+means the image intensity at that location is 145.
+
+---
+
+# 1.24 Scalar vs Vector vs Matrix
+
+This distinction is essential.
+
+## Scalar
+
+One value:
+
+[
+5
+]
+
+```text
+Scalar = one number
+```
+
+## Vector
+
+Multiple values arranged as one mathematical object:
+
+[
+\mathbf{v}
+==========
+
+\begin{bmatrix}
+5\
+10\
+15
+\end{bmatrix}
+]
+
+```text
+Vector = ordered collection of values
+```
+
+## Matrix
+
+Values arranged in rows and columns:
+
+[
+A=
+\begin{bmatrix}
+1&2&3\
+4&5&6
+\end{bmatrix}
+]
+
+```text
+Matrix = rectangular arrangement of values
+```
+
+Think:
+
+```text
+Scalar
+   ↓
+one value
+
+Vector
+   ↓
+one-dimensional structure
+
+Matrix
+   ↓
+two-dimensional structure
+```
+
+An image is commonly represented using a matrix, while an image coordinate can be represented using a vector.
+
+---
+
+# 1.25 Vector Operations
+
+Consider:
+
+[
+\mathbf{a}
+==========
+
+\begin{bmatrix}
+2\
+3
+\end{bmatrix}
+]
+
+and:
+
+[
+\mathbf{b}
+==========
+
+\begin{bmatrix}
+4\
+5
+\end{bmatrix}
+]
+
+## Addition
+
+[
+\mathbf{a}+\mathbf{b}
+=====================
+
+\begin{bmatrix}
+6\
+8
+\end{bmatrix}
+]
+
+## Subtraction
+
+[
+\mathbf{a}-\mathbf{b}
+=====================
+
+\begin{bmatrix}
+-2\
+-2
+\end{bmatrix}
+]
+
+## Scalar multiplication
+
+[
+3\mathbf{a}
+===========
+
+\begin{bmatrix}
+6\
+9
+\end{bmatrix}
+]
+
+---
+
+# 1.26 Dot Product
+
+The dot product is:
+
+[
+\mathbf{a}\cdot\mathbf{b}
+=========================
+
+a_1b_1+a_2b_2
+]
+
+For:
+
+[
+\mathbf{a}=
+\begin{bmatrix}
+2\3
+\end{bmatrix}
+]
+
+and:
+
+[
+\mathbf{b}=
+\begin{bmatrix}
+4\5
+\end{bmatrix}
+]
+
+we get:
+
+[
+2(4)+3(5)
+]
+
+[
+=8+15
+]
+
+[
+=23
+]
+
+Dot products are important later for:
+
+* projections
+* similarity
+* geometry
+* feature comparison
+* machine learning
+* image gradients
+
+---
+
+# 1.27 Vector Length
+
+For:
+
+[
+\mathbf{v}
+==========
+
+\begin{bmatrix}
+x\y
+\end{bmatrix}
+]
+
+the Euclidean length is:
+
+[
+|\mathbf{v}|
+============
+
+\sqrt{x^2+y^2}
+]
+
+For:
+
+[
+\mathbf{v}
+==========
+
+\begin{bmatrix}
+3\4
+\end{bmatrix}
+]
+
+we get:
+
+[
+|\mathbf{v}|=5
+]
+
+In 3D:
+
+[
+\mathbf{v}
+==========
+
+\begin{bmatrix}
+x\y\z
+\end{bmatrix}
+]
+
+and:
+
+[
+|\mathbf{v}|
+============
+
+\sqrt{x^2+y^2+z^2}
+]
+
+This will become important when working with **3D medical volumes**.
+
+---
+
+# 1.28 Matrices — Dimensions Matter
+
+Suppose:
+
+[
+A=
+\begin{bmatrix}
+1&2&3\
+4&5&6
+\end{bmatrix}
+]
+
+This is a:
+
+[
+2\times3
+]
+
+matrix.
+
+That means:
+
+```text
+2 rows
+3 columns
+```
+
+Now consider:
+
+[
+B=
+\begin{bmatrix}
+1&2\
+3&4\
+5&6
+\end{bmatrix}
+]
+
+This is:
+
+[
+3\times2
+]
+
+Notice:
+
+[
+(2\times3)(3\times2)
+]
+
+is valid.
+
+The inner dimensions match:
+
+```text
+2 × 3
+    3 × 2
+    ↑
+    match
+```
+
+The result has the outer dimensions:
+
+[
+2\times2
+]
+
+This dimension rule becomes extremely important in transformations and machine learning.
+
+---
+
+# 1.29 Matrix Multiplication Intuition
+
+Matrix multiplication isn't simply:
+
+```text
+element × corresponding element
+```
+
+Instead:
+
+> Each output element is produced using a row from the first matrix and a column from the second.
+
+For:
+
+[
+A=
+\begin{bmatrix}
+1&2\
+3&4
+\end{bmatrix}
+]
+
+and:
+
+[
+B=
+\begin{bmatrix}
+5&6\
+7&8
+\end{bmatrix}
+]
+
+the first output element is:
+
+[
+A_{11}B_{11}+A_{12}B_{21}
+]
+
+[
+=1(5)+2(7)
+]
+
+[
+=19
+]
+
+Therefore:
+
+[
+AB=
+\begin{bmatrix}
+19&22\
+43&50
+\end{bmatrix}
+]
+
+---
+
+# 1.30 Matrix as an Image
+
+Suppose:
+
+[
+I=
+\begin{bmatrix}
+10&20&30\
+40&50&60\
+70&80&90
+\end{bmatrix}
+]
+
+We can interpret:
+
+```text
+10 20 30
+40 50 60
+70 80 90
+```
+
+as intensity values.
+
+For example:
+
+[
+I(1,1)=50
+]
+
+depending on the indexing convention being used.
+
+This is why image-processing programming requires us to be very careful about:
+
+* row
+* column
+* x
+* y
+* width
+* height
+
+A common programming mistake is confusing:
+
+```text
+(x,y)
+```
+
+with:
+
+```text
+(row,column)
+```
+
+We will revisit this in detail in the image-coordinate chapters.
+
+---
+
+# 1.31 Linear Transformations
+
+A transformation changes a mathematical object.
+
+For example:
+
+```text
+Original point
+     ↓
+Transformation
+     ↓
+New point
+```
+
+Suppose:
+
+[
+\mathbf{p}
+==========
+
+\begin{bmatrix}
+x\y
+\end{bmatrix}
+]
+
+and:
+
+[
+A=
+\begin{bmatrix}
+2&0\
+0&2
+\end{bmatrix}
+]
+
+Then:
+
+[
+\mathbf{p'}=A\mathbf{p}
+]
+
+This scales the point by 2.
+
+---
+
+# 1.32 Rotation
+
+A 2D rotation matrix is:
+
+[
+R(\theta)
+=========
+
+\begin{bmatrix}
+\cos\theta&-\sin\theta\
+\sin\theta&\cos\theta
+\end{bmatrix}
+]
+
+This is extremely important.
+
+For example, when:
+
+[
+\theta=90^\circ
+]
+
+we have:
+
+[
+\cos90^\circ=0
+]
+
+[
+\sin90^\circ=1
+]
+
+so:
+
+[
+R=
+\begin{bmatrix}
+0&-1\
+1&0
+\end{bmatrix}
+]
+
+Applying it to:
+
+[
+\begin{bmatrix}
+1\0
+\end{bmatrix}
+]
+
+gives:
+
+[
+\begin{bmatrix}
+0\1
+\end{bmatrix}
+]
+
+So:
+
+```text
+(1,0)
+ ↓
+90° rotation
+ ↓
+(0,1)
+```
+
+Later this becomes fundamental to:
+
+* image rotation
+* registration
+* 3D transformations
+* medical coordinate systems
+
+---
+
+# 1.33 Eigenvalues and Eigenvectors — Intuition
+
+Consider a transformation:
+
+[
+A\mathbf{v}
+]
+
+Most vectors change both:
+
+* direction
+* magnitude
+
+But special vectors behave differently.
+
+An eigenvector satisfies:
+
+[
+A\mathbf{v}=\lambda\mathbf{v}
+]
+
+Meaning:
+
+```text
+Original vector
+      ↓
+Transformation
+      ↓
+Same direction
+      ↓
+Scaled by λ
+```
+
+The number (\lambda) is the **eigenvalue**.
+
+This is important in mathematical analysis of data and later applications such as PCA.
+
+---
+
+# 1.34 Complex Numbers
+
+A complex number:
+
+[
+z=a+bi
+]
+
+has:
+
+* real part (a)
+* imaginary part (b)
+
+where:
+
+[
+i=\sqrt{-1}
+]
+
+and therefore:
+
+[
+i^2=-1
+]
+
+Example:
+
+[
+z=3+4i
+]
+
+Its magnitude is:
+
+[
+|z|=\sqrt{3^2+4^2}=5
+]
+
+This looks surprisingly similar to vector magnitude.
+
+That is not accidental.
+
+Complex numbers can also be represented geometrically:
+
+```text
+             Imaginary
+                 ↑
+                 │
+                 │      • (3,4)
+                 │
+─────────────────┼──────────→ Real
+```
+
+Later, Fourier transforms will use complex numbers to represent frequency information.
+
+---
+
+# 1.35 Derivative — Visual Meaning
+
+Suppose an intensity profile looks like:
+
+```text
+Intensity
+
+200 |              ________
+    |             /
+100 |            /
+    |           /
+  0 |__________/
+    +----------------------→ position
+```
+
+The derivative tells us how steeply the intensity is changing.
+
+A flat region:
+
+```text
+__________
+```
+
+has approximately:
+
+[
+\frac{dI}{dx}=0
+]
+
+A sharp transition:
+
+```text
+     /
+    /
+___/
+```
+
+has a large derivative.
+
+Therefore:
+
+```text
+Intensity change
+       ↓
+Derivative
+       ↓
+Edge information
+```
+
+This is one of the key bridges between calculus and image processing.
+
+---
+
+# 1.36 Partial Derivatives in 2D
+
+For:
+
+[
+I(x,y)
+]
+
+we have:
+
+[
+\frac{\partial I}{\partial x}
+]
+
+and:
+
+[
+\frac{\partial I}{\partial y}
+]
+
+Think of them as:
+
+```text
+∂I/∂x
+  ↓
+How intensity changes horizontally
+
+∂I/∂y
+  ↓
+How intensity changes vertically
+```
+
+Together:
+
+[
+\nabla I
+========
+
+\begin{bmatrix}
+I_x\
+I_y
+\end{bmatrix}
+]
+
+where:
+
+[
+I_x=\frac{\partial I}{\partial x}
+]
+
+and:
+
+[
+I_y=\frac{\partial I}{\partial y}
+]
+
+---
+
+# 1.37 Gradient Magnitude
+
+The gradient magnitude is:
+
+[
+|\nabla I|
+==========
+
+\sqrt{I_x^2+I_y^2}
+]
+
+Suppose:
+
+[
+I_x=3
+]
+
+and:
+
+[
+I_y=4
+]
+
+Then:
+
+[
+|\nabla I|=5
+]
+
+A larger gradient magnitude generally indicates a stronger intensity transition.
+
+Later this becomes fundamental to edge detection.
+
+---
+
+# 1.38 Probability vs Statistics
+
+These concepts are related but different.
+
+### Probability
+
+Starts with a model and asks:
+
+> What is likely to happen?
+
+### Statistics
+
+Starts with observations/data and asks:
+
+> What can we infer from the data?
+
+Think:
+
+```text
+Probability
+Model → Data
+
+Statistics
+Data → Information about model
+```
+
+In medical imaging:
+
+```text
+Image Data
+    ↓
+Statistics
+    ↓
+Intensity distribution
+    ↓
+Features
+    ↓
+Analysis
+```
+
+---
+
+# 1.39 Mean and Variance
+
+Suppose pixel values are:
+
+[
+10,20,30,40,50
+]
+
+Mean:
+
+[
+\mu=30
+]
+
+The deviations are:
+
+[
+-20,-10,0,10,20
+]
+
+Variance measures how spread out the values are.
+
+For a population:
+
+[
+\sigma^2
+========
+
+\frac{1}{N}
+\sum_{i=1}^{N}(x_i-\mu)^2
+]
+
+For our example:
+
+[
+\sigma^2
+========
+
+\frac{
+400+100+0+100+400
+}{5}
+]
+
+[
+=200
+]
+
+Standard deviation:
+
+[
+\sigma=\sqrt{200}
+]
+
+approximately:
+
+[
+14.14
+]
+
+Later these concepts will be useful for understanding image noise and contrast.
+
+---
+
+# 1.40 Optimization — A Simple Example
+
+Suppose:
+
+[
+f(x)=x^2
+]
+
+We want to find its minimum.
+
+Obviously:
+
+[
+x=0
+]
+
+gives:
+
+[
+f(0)=0
+]
+
+So:
+
+[
+x^*=0
+]
+
+Graphically:
+
+```text
+f(x)
+
+  ↑
+  │ \       /
+  │  \     /
+  │   \___/
+  │
+  └────────────→ x
+       0
+```
+
+The lowest point is the optimum.
+
+---
+
+# 1.41 Why Optimization Matters in Registration
+
+Suppose we have:
+
+```text
+Fixed CT
+   +
+Moving MRI
+```
+
+We want to find the transformation that aligns them.
+
+There are many possible transformations.
+
+So we define an objective:
+
+[
+F(T)
+]
+
+where (T) represents the transformation.
+
+Then:
+
+[
+T^*
+===
+
+\arg\min_T F(T)
+]
+
+or, depending on the metric:
+
+[
+T^*
+===
+
+\arg\max_T F(T)
+]
+
+The computer searches for the transformation that gives the best alignment.
+
+So:
+
+```text
+Fixed image
+      +
+Moving image
+      ↓
+Similarity metric
+      ↓
+Optimization
+      ↓
+Best transformation
+      ↓
+Registered image
+```
+
+This is a very important future connection.
+
+---
+
+# 1.42 Numerical Methods
+
+Imagine we want to solve:
+
+[
+f(x)=0
+]
+
+Sometimes an exact analytical solution isn't practical.
+
+We can use an iterative method.
+
+For example:
+
+```text
+Initial guess
+     ↓
+Calculate
+     ↓
+Improve estimate
+     ↓
+Calculate again
+     ↓
+Improve again
+     ↓
+...
+     ↓
+Approximate solution
+```
+
+This general idea appears throughout medical imaging.
+
+Large images and complex models often require computational approximation rather than closed-form mathematical solutions.
+
+---
+
+# 1.43 How Chapter 1 Connects to Future Chapters
+
+This is the key roadmap.
+
+### Mathematics
+
+```text
+Functions
+Vectors
+Matrices
+Calculus
+Probability
+Statistics
+Optimization
+```
+
+↓
+
+### Classical Image Processing
+
+```text
+Pixel operations
+Convolution
+Filtering
+Gradients
+Morphology
+Fourier
+```
+
+↓
+
+### Medical Image Processing
+
+```text
+CT
+MRI
+X-Ray
+3D volumes
+Segmentation
+Registration
+```
+
+↓
+
+### Advanced Medical Imaging
+
+```text
+Reconstruction
+Radiomics
+AI
+Deep Learning
+```
+
+↓
+
+### Software Engineering
+
+```text
+C++
+Qt
+ITK
+VTK
+DCMTK
+CUDA
+Architecture
+```
+
+This is why we are spending time on mathematics now.
+
+---
+
+# 1.44 Practical C++ Exercise
+
+Create a small C++ program that performs vector operations:
+
+```cpp
+#include <iostream>
+#include <cmath>
+
+int main()
+{
+    double x1 = 3.0;
+    double y1 = 4.0;
+
+    double magnitude = std::sqrt(x1 * x1 + y1 * y1);
+
+    std::cout << "Magnitude = "
+              << magnitude
+              << '\n';
+
+    return 0;
+}
+```
+
+Expected result:
+
+```text
+Magnitude = 5
+```
+
+Then modify it to calculate the magnitude of a 3D vector:
+
+[
+(x,y,z)
+]
+
+using:
+
+[
+\sqrt{x^2+y^2+z^2}
+]
+
+---
+
+# 1.45 Practical Python Exercise
+
+```python
+import math
+
+x = 3.0
+y = 4.0
+
+magnitude = math.sqrt(x*x + y*y)
+
+print("Magnitude =", magnitude)
+```
+
+Then extend it to:
+
+```text
+x = 3
+y = 4
+z = 12
+```
+
+and calculate:
+
+[
+\sqrt{x^2+y^2+z^2}
+]
+
+You should get:
+
+[
+13
+]
+
+because:
+
+[
+3^2+4^2+12^2
+============
+
+# 9+16+144
+
+169
+]
+
+and:
+
+[
+\sqrt{169}=13
+]
+
+---
+
+# 1.46 Chapter 1 — Core Mental Model
+
+Remember these relationships:
+
+```text
+IMAGE
+  ↓
+Function I(x,y)
+  ↓
+Matrix
+  ↓
+Pixels
+  ↓
+Numerical operations
+```
+
+For geometry:
+
+```text
+Coordinates
+  ↓
+Vectors
+  ↓
+Matrices
+  ↓
+Transformations
+  ↓
+Registration
+```
+
+For image boundaries:
+
+```text
+Intensity
+  ↓
+Derivative
+  ↓
+Gradient
+  ↓
+Edges
+```
+
+For uncertainty:
+
+```text
+Probability
+  +
+Statistics
+  ↓
+Image analysis
+```
+
+For finding the best solution:
+
+```text
+Objective
+  ↓
+Optimization
+  ↓
+Best solution
+```
+
+For computation:
+
+```text
+Mathematical problem
+  ↓
+Numerical method
+  ↓
+Computational solution
+```
+
+---
+
+## Chapter 1 — Final Knowledge Check
+
+Try these without looking back:
+
+1. What is the difference between a scalar, vector, and matrix?
+2. Why can an image be represented as a matrix?
+3. What is a dot product?
+4. How do you calculate vector magnitude?
+5. What is matrix multiplication?
+6. What is a linear transformation?
+7. What does a rotation matrix do?
+8. What is an eigenvector?
+9. What is an eigenvalue?
+10. Why are complex numbers needed for Fourier analysis?
+11. What does a derivative represent?
+12. Why are partial derivatives required for images?
+13. What is an image gradient?
+14. What does gradient magnitude represent?
+15. What is the difference between probability and statistics?
+16. What is variance?
+17. What is optimization?
+18. Why is optimization important for image registration?
+19. What are numerical methods?
+20. Explain the relationship:
+
+```text
+Mathematics
+   ↓
+Image Processing
+   ↓
+Medical Image Processing
+```
+
+### Practical challenge
+
+Given:
+
+[
+I=
+\begin{bmatrix}
+10&20&30\
+40&50&60\
+70&80&90
+\end{bmatrix}
+]
+
+calculate:
+
+1. Number of rows
+2. Number of columns
+3. Mean
+4. Minimum
+5. Maximum
+6. Center value
+7. Matrix × 2
+8. Matrix + 10
+
+**Chapter 2 — What Is an Image?** 
 
 When you are ready, say **“continue Chapter 1”** and we will go deeper into the mathematics before moving to Chapter 2.
